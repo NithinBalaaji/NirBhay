@@ -1,0 +1,30 @@
+
+    <label>Username</label>
+    <input type="text" id="user" name="username"><br>
+    <label>Password</label>
+    <input type="password" id="passwd" name="password">
+    <button id="button" onclick="login()">SUBMIT</button>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+function init() {
+document.getElementById('button').addEventListener('click', login);
+}
+function login(){
+  $.ajax({url: "http://anish.banaborg.tech:5000/login", dataType:'text', cache:false, type:"POST",
+  data: {
+      username : document.getElementById("user").value,
+      password : document.getElementById("passwd").value
+  },
+  success: function(result){
+    var storage = window.localStorage;
+    storage.setItem('secret_key', result);
+    window.location = "index.html";
+  },
+  error: function(xhr,status,error) {
+      alert("Server Error");
+  }
+    });
+    }
+</script>
+
